@@ -14,6 +14,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=6)
+    role: Role = Field(default=Role.USER)
 
 
 class UserRead(UserBase):
