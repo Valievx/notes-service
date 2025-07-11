@@ -4,6 +4,8 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker
 )
 
+from common.settings import settings
+
 
 class DatabaseHelper:
     def __init__(self, url):
@@ -21,3 +23,11 @@ class DatabaseHelper:
     async def session_getter(self):
         async with self.session_factory() as session:
             yield session
+
+
+db_helper = DatabaseHelper(url=str(settings.DATABASE_URL))
+
+
+async def get_session():
+    async for session in db_helper.session_getter():
+        yield session
