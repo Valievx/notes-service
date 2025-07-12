@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, update
+from sqlalchemy import select
 
 from models.note import Note
 
@@ -25,7 +25,7 @@ class NoteRepository:
         return result.scalars().all()
 
     async def list_all(self) -> list[Note]:
-        stmt = select(Note).where(Note.is_deleted == False)
+        stmt = select(Note)
         result = await self.session.execute(stmt)
         return result.scalars().all()
 
